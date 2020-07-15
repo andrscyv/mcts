@@ -13,7 +13,7 @@ class TestNode(unittest.TestCase):
         self.assertIsNotNone(root._state)
 
     def test_create_node_from_incoming_action(self):
-        state = mock.Mock()
+        state = mock.Mock(spec=GameState)
         state.get_possible_actions.return_value = [1, 2]
         root = Node(None, state=state)
         node = Node(root, incoming_action=root.pop_action())
@@ -22,13 +22,13 @@ class TestNode(unittest.TestCase):
         self.assertTrue(state.next_state_from_action.called)
 
     def test_node_is_terminal_calls_state(self):
-        state = mock.Mock()
+        state = mock.Mock(spec=GameState)
         node = Node(None, state = state)
         node.is_terminal()  
         self.assertTrue(state.is_terminal.called)
 
     def test_is_fully_expanded(self):
-        state = mock.Mock()
+        state = mock.Mock(spec=GameState)
         state.get_possible_actions.return_value = [1, 2]
         node = Node(None, state = state)
         self.assertFalse(node.is_fully_expanded())

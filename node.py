@@ -69,6 +69,8 @@ class GameState:
         pass
     def calculate_reward(self):
         pass
+    def is_terminal(self):
+        pass
 
 
 
