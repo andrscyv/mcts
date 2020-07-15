@@ -1,3 +1,4 @@
+import copy
 class Node:
     def __init__(self,parent, state = None, incoming_action=None):
 
@@ -10,10 +11,22 @@ class Node:
 
         self._children = []
         self._actions = self._state.get_possible_actions()
+        self._inmut_actions = copy.deepcopy(self._actions)
         self._visit_count = 0
         self._total_reward = 0
         self._parent = parent
         
+    def actions(self):
+        return self._inmut_actions
+
+    def get_parent(self):
+        return self._parent
+    
+    def get_total_reward(self):
+        return self._total_reward
+
+    def get_visit_count(self):
+        return self._visit_count
 
     def pop_action(self):
         assert len(self._actions) > 0
@@ -37,27 +50,6 @@ class Node:
     
     def get_children(self):
         return self._children
-
-    # def check_rows(self):
-    #     for row in self.state :
-    #         if all_elements_equal(row):
-    #             return True
-    #     return False
-
-    # def check_columns(self):
-    #     transpose = list(zip(*self.state)) 
-    #     for row in transpose :
-    #         if all_elements_equal(row):
-    #             return True
-    #     return False
-
-    # def all_elements_equal(self, list):
-    #     iterator = iter(list)
-    #     try:
-    #         first = next(iterator)
-    #     except StopIteration:
-    #         return True
-    #     return all(first == rest for rest in iterator)
 
 
 

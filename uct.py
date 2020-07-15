@@ -1,5 +1,6 @@
 import math
 from node import Node
+import random
 # Each node has:
 # - state (calculated instead of stored ?)
 # - incoming action 
@@ -7,7 +8,7 @@ from node import Node
 # - visit count 
 
 def uct_decision(s0, num_iterations = 100):
-    root = Node(state=s0)
+    root = Node(None,state=s0)
 
     for i in range(0, num_iterations):
         node_to_expand = tree_policy(root)
@@ -36,18 +37,18 @@ def expand(node):
 def best_child(node, exploration_factor):
 
     def uct_val(parent, child):
-        exploitation_term = child.total_reward/child.visit_count
-        exploration_term = exploration_factor*math.sqrt((2*math.log(parent.visit_count))/child.visit_count)
+        exploitation_term = child.get_total_reward()/child.get_visit_count()
+        exploration_term = exploration_factor*math.sqrt((2*math.log(parent.get_visit_count()))/child.get_visit_count())
         return exploitation_term + exploration_term
 
-    children_uct_value = [ uct_val(node, child) for child in node.children() ]
+    children_uct_value = [ uct_val(node, child) for child in node.get_children() ]
     #missing return child with greates uct_val
     raise Exception
 
 def default_policy(node):
     while not node.is_terminal():
-        action = choose_random(node.actions())
-        node = Node(incoming_action=action)
+        action = random.choice(node.actions())
+        node = Node(node,incoming_action=action)
 
     return node.calculate_reward()
 
