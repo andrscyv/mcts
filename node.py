@@ -16,13 +16,14 @@ class Node:
         
 
     def pop_action(self):
+        assert len(self._actions) > 0
         return self._actions.pop()
 
     def append_child(self, node):
-        pass
+        self._children.append(node)
 
     def calculate_reward(self):
-        pass
+        return self._state.calculate_reward()
 
     def is_terminal(self):
         return self._state.is_terminal() 
@@ -33,6 +34,9 @@ class Node:
 
     def is_fully_expanded(self):
         return len(self._actions) == 0
+    
+    def get_children(self):
+        return self._children
 
     # def check_rows(self):
     #     for row in self.state :
@@ -60,6 +64,10 @@ class Node:
     
 class GameState:
     def get_possible_actions(self):
+        pass
+    def next_state_from_action(self):
+        pass
+    def calculate_reward(self):
         pass
 
 
