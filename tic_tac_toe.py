@@ -110,5 +110,6 @@ def play_game():
                 break
     return(winner) 
   
-# Driver Code 
-print("Winner is: " + str(play_game())) 
+if __name__ == "__main__":
+    # Driver Code 
+    print("Winner is: " + str(play_game())) 
