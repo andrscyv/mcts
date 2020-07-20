@@ -15,9 +15,13 @@ class Node:
         self._visit_count = 0
         self._total_reward = 0
         self._parent = parent
+        self._incoming_action = incoming_action
         
     def actions(self):
         return self._inmut_actions
+
+    def get_incoming_action(self):
+        return self._incoming_action
 
     def get_parent(self):
         return self._parent

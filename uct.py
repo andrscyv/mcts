@@ -15,7 +15,7 @@ def uct_decision(s0, num_iterations = 100):
         reward = default_policy(node_to_expand) 
         backup(node_to_expand, reward)
     
-    return best_child(root, 0)['action']
+    return best_child(root, 0).get_incoming_action()
 
 def tree_policy(node, exploration_factor = 1/pow(2,1/2)):
 
@@ -34,16 +34,15 @@ def expand(node):
 
     return new_node
 
+def uct_val(parent, child, exploration_factor):
+    exploitation_term = child.get_total_reward()/child.get_visit_count()
+    exploration_term = exploration_factor*math.sqrt((2*math.log(parent.get_visit_count()))/child.get_visit_count())
+    return exploitation_term + exploration_term
+    
 def best_child(node, exploration_factor):
 
-    def uct_val(parent, child):
-        exploitation_term = child.get_total_reward()/child.get_visit_count()
-        exploration_term = exploration_factor*math.sqrt((2*math.log(parent.get_visit_count()))/child.get_visit_count())
-        return exploitation_term + exploration_term
-
-    children_uct_value = [ uct_val(node, child) for child in node.get_children() ]
-    #missing return child with greates uct_val
-    raise Exception
+    children_uct_value = [ uct_val(node, child, exploration_factor) for child in node.get_children() ]
+    return node.get_children()[children_uct_value.index(max(children_uct_value))]
 
 def default_policy(node):
     while not node.is_terminal():

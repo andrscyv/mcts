@@ -1,4 +1,4 @@
-from tic_tac_toe import *
+from .util import *
 
 class TicTacToeState:
 
@@ -23,12 +23,12 @@ class TicTacToeState:
         winner = evaluate(self._board)
 
         if winner == -1:
-            return 0
+            return 30
         else:
             if winner == 1:
-                return 1
+                return 50 
             else:
-                return -1
+                return -200
 
     def is_terminal(self):
         return evaluate(self._board) != 0

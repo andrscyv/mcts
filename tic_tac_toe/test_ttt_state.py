@@ -1,4 +1,4 @@
-from ttt_state import TicTacToeState
+from .ttt_state import TicTacToeState
 import unittest
 import numpy
 
