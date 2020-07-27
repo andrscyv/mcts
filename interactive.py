@@ -32,6 +32,7 @@ def play(x,y):
     uct()
 
 def new():
+    global board
     board = create_board()
     print(board)
 
@@ -39,6 +40,7 @@ if __name__ == "__main__":
     global board 
     board = create_board()
     board = numpy.array([[0, 0, 0],
-                       [0, 2, 2],
-                       [0, 1, 1]])
+                         [0, 2, 2],
+                         [0, 1, 0]])
     print(board)
+    uct()

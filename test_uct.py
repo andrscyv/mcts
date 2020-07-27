@@ -95,12 +95,13 @@ class UctTestCase(unittest.TestCase):
         self.assertTrue(node.append_child.called)
         self.assertTrue(node.pop_action.called)
 
+    @mock.patch('uct.select_action')
     @mock.patch('uct.random')
     @mock.patch('uct.Node')
-    def test_default_policy(self, mock_node, mock_random):
+    def test_default_policy(self, mock_node, mock_random, mock_select_action):
         node = mock.Mock()
         node.is_terminal.side_effect = [False, True]
-        mock_random.choice.return_value =1
+        mock_select_action.return_value =1
         child_node = mock.Mock()
         mock_node.return_value = child_node
         

@@ -55,6 +55,12 @@ class Node:
     def get_children(self):
         return self._children
 
+    def __str__(self):
+        return 'holi'
+    
+    def __repr__(self):
+        return f"<Node action: {self._incoming_action} . Reward: {self._total_reward} . Visits: {self._visit_count}>"
+
 
 
     

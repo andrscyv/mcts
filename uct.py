@@ -46,10 +46,19 @@ def best_child(node, exploration_factor):
 
 def default_policy(node):
     while not node.is_terminal():
-        action = random.choice(node.actions())
+        action = select_action(node) #random.choice(node.actions())
         node = Node(node,incoming_action=action)
 
     return node.calculate_reward()
+
+def select_action(node):
+    children = [ Node(node,incoming_action=action) for action in node.actions()]
+    
+    for node in children:
+        if node.is_terminal():
+            return node.get_incoming_action()
+
+    return random.choice(node.actions())
 
 def backup(node, reward):
     while node:

@@ -10,25 +10,28 @@ class TicTacToeState:
         self._player =  current_player 
 
     def get_possible_actions(self):
+        if self.is_terminal():
+            return []
+
         return possibilities(self._board)
 
     def next_state_from_action(self, action):
-        player = self._next_player()
         next_board = np.copy(self._board)
-        self._play_move(player, action, next_board)
+        self._play_move(self._player, action, next_board)
+        player = self._next_player()
         return TicTacToeState(current_player=player, board = next_board)
 
     def calculate_reward(self):
-        assert self.is_terminal()
         winner = evaluate(self._board)
+        assert winner != 0 
 
         if winner == -1:
-            return 30
+            return 0
         else:
             if winner == 1:
-                return 50 
+                return 1 
             else:
-                return -200
+                return -1
 
     def is_terminal(self):
         return evaluate(self._board) != 0
