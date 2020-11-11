@@ -1,4 +1,5 @@
 import copy
+import math
 class Node:
     def __init__(self,parent, state = None, incoming_action=None):
 
@@ -54,12 +55,23 @@ class Node:
     
     def get_children(self):
         return self._children
+    
+    def uct_val(self, exploration_factor = 1/pow(2,1/2)):
+
+        if not self._parent:
+            return 'no parent'
+
+        child = self
+        parent = self._parent
+        exploitation_term = child.get_total_reward()/child.get_visit_count()
+        exploration_term = exploration_factor*math.sqrt((2*math.log(parent.get_visit_count()))/child.get_visit_count())
+        return round(exploitation_term + exploration_term, 4)
 
     def __str__(self):
         return 'holi'
     
     def __repr__(self):
-        return f"<Node action: {self._incoming_action} . Reward: {self._total_reward} . Visits: {self._visit_count}>"
+        return f"<Node actn: {self._incoming_action} Val:{self.uct_val()} Rwrd: {self._total_reward}  Vists: {self._visit_count} Plyr:{self._state._player}>"
 
 
 
