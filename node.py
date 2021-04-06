@@ -1,5 +1,8 @@
 import copy
 import math
+from enum import Enum
+from collections import defaultdict
+
 class Node:
     def __init__(self,parent, state = None, incoming_action=None):
 
@@ -14,7 +17,7 @@ class Node:
         self._actions = self._state.get_possible_actions()
         self._inmut_actions = copy.deepcopy(self._actions)
         self._visit_count = 0
-        self._total_reward = 0
+        self._total_reward = defaultdict(int) 
         self._parent = parent
         self._incoming_action = incoming_action
         
@@ -28,7 +31,11 @@ class Node:
         return self._parent
     
     def get_total_reward(self):
-        return self._total_reward
+        assert(self._parent)
+        last_player_to_move = self._parent._state._player
+        wins = self._total_reward[last_player_to_move]
+        loses = self._total_reward[-1*last_player_to_move]
+        return wins - loses
 
     def get_visit_count(self):
         return self._visit_count
@@ -48,7 +55,7 @@ class Node:
 
     def register_visit(self,reward):
         self._visit_count += 1
-        self._total_reward += reward
+        self._total_reward[reward] += 1
 
     def is_fully_expanded(self):
         return len(self._actions) == 0

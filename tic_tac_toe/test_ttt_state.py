@@ -14,7 +14,7 @@ class TicTacToeStateTest(unittest.TestCase):
         action = (0,0)
         self.assertTrue(action in state.get_possible_actions())
         next_state = state.next_state_from_action((0,0))
-        expected_board = numpy.array([[2,0,0],[0,0,0],[0,0,0]])
+        expected_board = numpy.array([[1,0,0],[0,0,0],[0,0,0]])
         self.assertTrue(next_state._board.shape == expected_board.shape)
         self.assertTrue((next_state._board == expected_board).all())
         self.assertTrue(next_state._player == 2)

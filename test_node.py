@@ -1,3 +1,4 @@
+from collections import defaultdict
 import unittest
 from unittest import mock
 from node import Node 
@@ -64,9 +65,9 @@ class TestNode(unittest.TestCase):
         state = mock.Mock(spec=GameState)
         node = Node(None, state=state)
         self.assertEqual(node._visit_count, 0)
-        self.assertEqual(node._total_reward, 0)
-        node.register_visit(5)
+        self.assertEqual(node._total_reward, defaultdict(int))
+        node.register_visit(1)
         self.assertEqual(node._visit_count, 1)
-        self.assertEqual(node._total_reward,5)
+        self.assertEqual(node._total_reward[1],1)
 
 

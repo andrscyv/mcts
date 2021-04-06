@@ -24,7 +24,7 @@ def play_move(x,y, player):
 
 
 def uct():
-    move = uct_decision(TicTacToeState(board=board), num_iterations=8000)
+    move = uct_decision(TicTacToeState(board=board), num_iterations=500)
     play_move(move[0], move[1], 1)
 
 def play(x,y):
@@ -39,6 +39,9 @@ def new():
 if __name__ == "__main__":
     global board 
     board = create_board()
+    # board = numpy.array([[2, 2, 0],
+    #                      [1, 2, 2],
+    #                      [1, 1, 0]])
     board = numpy.array([[0, 0, 0],
                          [0, 2, 2],
                          [0, 1, 0]])

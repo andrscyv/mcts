@@ -26,12 +26,12 @@ class TicTacToeState:
         assert winner != 0 
 
         if winner == -1:
-            return 0.5
+            return 0
         else:
             if winner == 1:
                 return 1 
             else:
-                return 0
+                return -1
 
     def is_terminal(self):
         return evaluate(self._board) != 0
