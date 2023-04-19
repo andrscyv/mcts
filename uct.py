@@ -63,5 +63,4 @@ def select_action(node):
 def backup(node, reward):
     while node:
         node.register_visit(reward)
-        reward = -reward
         node = node.get_parent()

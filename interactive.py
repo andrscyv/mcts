@@ -24,7 +24,7 @@ def play_move(x,y, player):
 
 
 def uct():
-    move = uct_decision(TicTacToeState(board=board), num_iterations=500)
+    move = uct_decision(TicTacToeState(board=board), num_iterations=100)
     play_move(move[0], move[1], 1)
 
 def play(x,y):

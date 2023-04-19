@@ -32,7 +32,9 @@ class Node:
     
     def get_total_reward(self):
         assert(self._parent)
-        last_player_to_move = self._parent._state._player
+        last_player_to_move = self._parent._state._player 
+        # assert(last_player_to_move == 1 or last_player_to_move == -1)
+        last_player_to_move = last_player_to_move if last_player_to_move == 1 else -1
         wins = self._total_reward[last_player_to_move]
         loses = self._total_reward[-1*last_player_to_move]
         return wins - loses
